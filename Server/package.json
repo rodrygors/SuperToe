@@ -1,0 +1,27 @@
+{
+  "name": "supertoe-server",
+  "version": "1.0.0",
+  "description": "Extended tik tak toe web game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrygors/SuperToe.git"
+  },
+  "keywords": [
+    "webgame"
+  ],
+  "author": "GG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrygors/SuperToe/issues"
+  },
+  "homepage": "https://github.com/rodrygors/SuperToe/readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.2"
+  }
+}
