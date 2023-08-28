@@ -1,26 +1,35 @@
-const log = (text) => {
-    const parent = document.querySelector('#events');
-    const el = document.createElement('li');
-    el.innerHTML = text;
+// const log = (text) => {
+//   const parent = document.querySelector('#events');
+//   const el = document.createElement('li');
+//   el.innerHTML = text;
+
+//   parent.appendChild(el);
+//   parent.scrollTop = parent.scrollHeight;
+// };
+
+// const onChatSubmitted = (e) => {
+//   e.preventDefault();
+
+//   const input = document.querySelector('#chat');
+//   const text = input.value;
+//   input.value = '';
+
+//  log(text);
+// };
+
+const onUsernameSubmited = (sock) => (e) => {
+  e.preventDefault();
+
+  const input = document.querySelector('#chose-username');
+  const username = input.value;
+  input.value = '';
+
+  sock.emit('change-username', username);
+};
+
+(() => {
+  const sock = io();
   
-    parent.appendChild(el);
-    parent.scrollTop = parent.scrollHeight;
-  };
-  
-  const onChatSubmitted = (e) => {
-    e.preventDefault();
-  
-    const input = document.querySelector('#chat');
-    const text = input.value;
-    input.value = '';
-  
-    log(text);
-  };
-  
-  (() => {
-    log('welcome');
-  
-    document
-      .querySelector('#chat-form')
-      .addEventListener('submit', onChatSubmitted);
-  })();
+  //document.querySelector('#chat-form').addEventListener('submit', onChatSubmitted);
+  document.querySelector('#chose-username-form').addEventListener('submit', onUsernameSubmited(sock));
+})();
