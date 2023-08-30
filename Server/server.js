@@ -13,7 +13,8 @@ io.on('connection', (socket) => {
   playerManager.playerJoined(socket.id);
  
   socket.on('change-username', (username) => {
-    playerManager.changeUsername(socket.id, username)
+    const changedUsername = playerManager.changeUsername(socket.id, username);
+    console.log(`O jogador ${changedUsername['oldNick']}(${socket.id}) alterou o nome para ${changedUsername['newNick']}`)
   });
 
   socket.on("disconnecting", () => {

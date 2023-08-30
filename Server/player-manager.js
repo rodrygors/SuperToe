@@ -12,16 +12,21 @@ const playerManager = () => {
     }
 
     const playerJoined = (playerID) => {
-        var player = Player(playerID);
+        var player = new Player(playerID);
         playerList[playerID] = player;
     };
 
     const changeUsername = (playerID, nickname) => {
         var player = playerList[playerID];
-        var oldPlayerEntry = checkUsernameOnList(nickname);
+        const oldNick = player.getNickname();
+        player.setNickname(nickname);
 
-        if (nickname != "" && oldPlayerEntry) playerList.delete(oldPlayerEntry);
+        var oldPlayerEntry = checkUsernameOnList(nickname);
+        if (nickname != "" && oldPlayerEntry) delete playerList[oldPlayerEntry];
+
+        playerList[playerID] = player;
         
+        return {'oldNick': oldNick, 'newNick': player.getNickname()};
     }
 
     const getPlayerList = () => {
@@ -43,7 +48,7 @@ const playerManager = () => {
     }
 
     return {
-        playerJoined, getPlayerList, getPlayersToString, disconnectPlayer
+        playerJoined, changeUsername, getPlayerList, getPlayersToString, disconnectPlayer
     };
 }
 

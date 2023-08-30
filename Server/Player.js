@@ -1,28 +1,27 @@
-const Player = (pid) =>{
-    var playerID = pid;
-    var nickname = "";
-    var ongoingGame = false;
+class Player {
+    constructor(pid){
+        this.playerID = pid;
+        this.nickname = "";
+        this.ongoingGame = false;
+    }
 
-    const getPlayerID = () => {
-        return playerID;
+    //Getters and Setters
+    getPlayerID(){
+        return this.playerID;
     }
-    const getNickname = () => {
-        return nickname;
+    getNickname(){
+        return this.nickname;
     }
-    const setPlayerID = (pid) => {
+    setPlayerID(pid){
         this.playerID = pid;
     }
-    const setNickname = (nick) => {
+    setNickname(nick){
         this.nickname = nick;
     }
 
-    const hasOngoingGame = () => {
-        return ongoingGame;
+    hasOngoingGame(){
+        return this.ongoingGame;
     }
-
-    return {
-        Player, hasOngoingGame, getPlayerID, getNickname, setPlayerID, setNickname
-    };
 }
 
-module.exports = Player();
+module.exports = Player;
