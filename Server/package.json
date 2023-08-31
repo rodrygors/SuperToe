@@ -4,7 +4,8 @@
   "description": "Extended tik tak toe web game",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "debug": "nodemon --inspect server.js"
   },
   "repository": {
     "type": "git",

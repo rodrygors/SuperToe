@@ -1,55 +1,75 @@
 const Player = require('./Player.js')
 
-const playerManager = () => {
+class PlayerManager {
 
-    var playerList = {}
+    constructor(){
+        this.playerList = {}
+    }
 
-    const checkUsernameOnList = (nickname) => {
-        for (playerID in playerList){
-            if (playerList[playerID].getNickname() == nickname) return playerID;
+    playerJoined(playerID) {
+        var player = new Player(playerID);
+        this.playerList[playerID] = player;
+    };
+
+    checkUsernameOnList(nickname) {
+        for (var player in this.playerList){
+            if (this.playerList[player].getNickname() == nickname) return player;
         }
         return 0;
     }
 
-    const playerJoined = (playerID) => {
-        var player = new Player(playerID);
-        playerList[playerID] = player;
-    };
-
-    const changeUsername = (playerID, nickname) => {
-        var player = playerList[playerID];
+    changeUsername(playerID, nickname) {
+        var player = this.playerList[playerID];
         const oldNick = player.getNickname();
         player.setNickname(nickname);
 
-        var oldPlayerEntry = checkUsernameOnList(nickname);
-        if (nickname != "" && oldPlayerEntry) delete playerList[oldPlayerEntry];
+        var oldPlayerEntry = this.checkUsernameOnList(nickname);
+        if (nickname != "" && oldPlayerEntry) delete this.playerList[oldPlayerEntry];
 
-        playerList[playerID] = player;
+        this.playerList[playerID] = player;
         
         return {'oldNick': oldNick, 'newNick': player.getNickname()};
     }
 
-    const getPlayerList = () => {
-        return playerList;
+    getPlayerList() {
+        return this.playerList;
     };
 
-    const getPlayersToString = () => {
-        var string = "Players Online:\n";
+    getOnlinePlayerList() {
+        var onlinePlayers = [];
+        for (var player in this.playerList){
+            if (this.playerList[player].getIsOnline()) onlinePlayers.push(this.playerList[player])
+        }
+        return onlinePlayers;
+    };
 
-        for (player in playerList){
-            string = string + (player + ": " + playerList[player] + "\n")
+    getPlayersToString() {
+        var string = "Player List:\n";
+
+        for (player in this.playerList){
+            string = string + (player + ": " + this.playerList[player] + "\n")
         }
 
         return string;
     };
 
-    const disconnectPlayer = (playerID) => {
-        if (!playerList[playerID].hasOngoingGame() && playerList[playerID].getNickname() == "") playerList.delete(playerID);
+    getOnlinePlayersToString() {
+        var string = "Players Online:\n";
+
+        for (var player in this.playerList){
+            if (this.playerList[player].getIsOnline()) {
+                string = string + (player + ": " + this.playerList[player].getNickname + "\n");
+            }
+        }
+
+        return string;
+    };
+
+    disconnectPlayer(playerID) {
+        if (!this.playerList[playerID].getOngoingGame() && this.playerList[playerID].getNickname() == "") delete this.playerList[playerID]
+        else this.playerList[playerID] = this.playerList[playerID].setIsOnline(false);
     }
 
-    return {
-        playerJoined, changeUsername, getPlayerList, getPlayersToString, disconnectPlayer
-    };
 }
 
-module.exports = playerManager();
+module.exports = PlayerManager;

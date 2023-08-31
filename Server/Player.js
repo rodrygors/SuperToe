@@ -3,6 +3,7 @@ class Player {
         this.playerID = pid;
         this.nickname = "";
         this.ongoingGame = false;
+        this.isOnline = true;
     }
 
     //Getters and Setters
@@ -18,9 +19,17 @@ class Player {
     setNickname(nick){
         this.nickname = nick;
     }
-
-    hasOngoingGame(){
+    getOngoingGame(){
         return this.ongoingGame;
+    }
+    setOngoingGame(isOngoingGame){
+        this.ongoingGame = isOngoingGame;
+    }
+    getIsOnline(){
+        return this.isOnline;
+    }
+    setIsOnline(isOn){
+        this.isOnline = isOn;
     }
 }
 

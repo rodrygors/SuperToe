@@ -17,6 +17,7 @@
 //  log(text);
 // };
 
+//Função com lógica para submeter a alteração de nickname
 const onUsernameSubmited = (sock) => (e) => {
   e.preventDefault();
 
@@ -28,8 +29,14 @@ const onUsernameSubmited = (sock) => (e) => {
 };
 
 (() => {
+  //Abrir ligação com o servidor
   const sock = io();
-  
+
+  //Mostrar mensagens do servidor na consola
+  sock.on('console-log', message => {
+    console.log(message);
+  })
+
   //document.querySelector('#chat-form').addEventListener('submit', onChatSubmitted);
   document.querySelector('#chose-username-form').addEventListener('submit', onUsernameSubmited(sock));
 })();
